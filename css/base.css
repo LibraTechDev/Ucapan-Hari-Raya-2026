@@ -1,0 +1,56 @@
+/* ============================================================
+   base.css — reset, variables, body, canvas, screens
+   ============================================================ */
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --blush:#f9c5d1;
+  --rose:#e8879c;
+  --deep-rose:#c45c74;
+  --gold:#d4a853;
+  --gold-light:#f0d090;
+  --gold-dark:#a07830;
+  --white:#fffcf8;
+}
+
+html,body{width:100%;height:100%;overflow:hidden}
+body{
+  background:linear-gradient(145deg,#fce8f0 0%,#fdf2e8 50%,#f8eaf4 100%);
+  font-family:'Cormorant Garamond',serif;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+
+/* Background canvas (petals + stars) */
+canvas#bgC{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* Sparkle crosses */
+.spk{position:fixed;pointer-events:none;z-index:2;animation:spkA 2.5s ease-in-out infinite}
+.spk::before,.spk::after{content:'';position:absolute;background:var(--gold);border-radius:1px}
+.spk::before{width:8px;height:2px;top:50%;left:0;transform:translateY(-50%)}
+.spk::after{width:2px;height:8px;left:50%;top:0;transform:translateX(-50%)}
+@keyframes spkA{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:.9;transform:scale(1.2) rotate(45deg)}}
+
+/* Screen containers */
+.scr{
+  position:fixed;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px 24px;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease,transform .5s ease;
+}
+.scr.active{opacity:1;pointer-events:all}
+.scr.out{opacity:0;transform:scale(.94);pointer-events:none}
+
+/* Toast notification */
+.toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:rgba(80,40,50,.85);color:#fff;
+  padding:10px 22px;border-radius:50px;
+  font-size:.85rem;letter-spacing:.04em;
+  opacity:0;transition:all .35s ease;
+  z-index:999;pointer-events:none;white-space:nowrap;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
